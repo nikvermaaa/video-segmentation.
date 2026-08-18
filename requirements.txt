@@ -1,0 +1,35 @@
+# Runtime dependencies for the ONM video scene-partitioning pipeline.
+#
+# Only these five are imported directly. Everything else that appears in a
+# `pip freeze` (joblib, threadpoolctl, imageio, tifffile, networkx, pillow,
+# lazy-loader, packaging) arrives as a transitive dependency of scikit-image
+# or scikit-learn and does not need listing.
+#
+# The floors below are minimums, not preferences - install the newest that
+# resolves. They are set where they are for concrete reasons:
+#
+#   numpy >= 2.0          the code is numpy-2 clean (no removed aliases)
+#   scikit-image >= 0.19  graycomatrix/graycoprops were named greycomatrix
+#                         and greycoprops before 0.19, and stage 4 uses the
+#                         new spelling
+#   opencv-python-headless >= 4.5   cv2.VideoWriter_fourcc and CLAHE as used
+#                         here. HEADLESS because nothing in this project opens
+#                         a window, and the plain wheel needs system GL
+#                         libraries that a fresh Linux install does not have.
+#                         Video decoding is unaffected: the headless wheel
+#                         still bundles FFmpeg. Plain opencv-python also works
+#                         if you already have it.
+#   scipy >= 1.10         scipy.stats.skew/kurtosis/entropy
+#   scikit-learn >= 1.3   PCA(n_components=<float>) and StandardScaler
+#
+# VERIFIED ON: Python 3.13.12 (CPython, Windows x86-64) with exactly
+#   opencv-python 5.0.0.93   numpy 2.4.2      scipy 1.18.0
+#   scikit-image 0.26.0      scikit-learn 1.9.0
+# Those are the only versions this has actually been run against. Pin to them
+# with `==` if you need to reproduce a result exactly.
+#
+opencv-python-headless>=4.5
+numpy>=2.0
+scipy>=1.10
+scikit-image>=0.19
+scikit-learn>=1.3

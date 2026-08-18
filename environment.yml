@@ -1,0 +1,35 @@
+# Conda environment for the ONM video scene-partitioning pipeline.
+#
+#     conda env create -f environment.yml
+#     conda activate onm
+#
+# See SETUP.md for the full procedure, including where to put the .mp4 files.
+#
+# WHY OpenCV COMES FROM pip AND NOT conda-forge
+# The scientific stack below installs cleanly from conda-forge. OpenCV is the
+# exception: conda-forge's `opencv` is a large build whose FFmpeg support -
+# which stage 1 depends on to decode .mp4 - varies between builds, and it
+# frequently drives long solves next to a pinned numpy. The pip wheel bundles
+# its own FFmpeg, is the package this project was developed and verified
+# against, and installs in seconds. pip runs last, after conda has resolved
+# everything else, which is the supported way to mix the two.
+
+name: onm
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.13
+  - numpy>=2.0
+  - scipy>=1.10
+  - scikit-image>=0.19
+  - scikit-learn>=1.3
+  - pip
+  - pip:
+      # HEADLESS on purpose, on every platform. This pipeline never opens a
+      # window, and the headless wheel drops the system GL dependency that
+      # otherwise fails on a fresh Linux box with
+      # "libGL.so.1: cannot open shared object file". Video decoding is
+      # unaffected - the headless wheel still bundles FFmpeg.
+      - opencv-python-headless>=4.5
