@@ -22,6 +22,9 @@ python run_all.py
 
 # 4. look at the result
 cat output/video_info/onm_summary.txt
+
+#5 if input is in the same folder
+python run_all.py --videos_dir .
 ```
 
 Step 2 must print `True`. Nothing else needs checking — if the imports were
