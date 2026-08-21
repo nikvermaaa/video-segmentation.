@@ -103,7 +103,7 @@ The `.mp4` files are input data, not source code, so they are not copied into
 this folder — `--videos_dir` defaults to the parent folder:
 
 ```bash
-python run_all.py --videos_dir . /path/to/videos
+python run_all.py --videos_dir /path/to/videos
 ```
 
 Add a clip by appending it to `VIDEOS` in `run_all.py`. The key names the
@@ -153,8 +153,8 @@ output/
 ```
 Video   Frames  5fps  PCA dims  SDCO N  Clusters  A(C)%   D(C)%      T   CC     SL
 input1     833   167        48      20         7  94.09    5.91  2.376    1  16.46
-input2    1449   290        26      18        16  99.61    0.39  3.586    5  18.29
-input3    1440   288        23      21        19 100.00    0.00  4.546    5  21.80
+input2    1177   197        14      11        13 100.00    0.00  6.387    5  23.90
+input3    1449   290        26      18        16  99.61    0.39  3.586    5  18.29
 ```
 
 `SDCO N` and `Clusters` are different numbers by design: N is what the count
@@ -184,3 +184,4 @@ A(C) mechanically — so the two are always quoted together.
   of the published method.
 * **The clustering does not iterate** — one assignment pass, one centroid
   update, faithful to the paper, so a poor initial centroid is never corrected.
+
