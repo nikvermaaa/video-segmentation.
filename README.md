@@ -103,7 +103,7 @@ The `.mp4` files are input data, not source code, so they are not copied into
 this folder — `--videos_dir` defaults to the parent folder:
 
 ```bash
-python run_all.py --videos_dir /path/to/videos
+python run_all.py --videos_dir . /path/to/videos
 ```
 
 Add a clip by appending it to `VIDEOS` in `run_all.py`. The key names the
