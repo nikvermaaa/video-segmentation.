@@ -161,8 +161,8 @@ and median track each other. PCA finds the directions that actually vary.
 | video | frames | 379 → PCA dims |
 |-------|--------|----------------|
 | input1 | 167 | 48 |
-| input2 | 290 | 26 |
-| input3 | 288 | 23 |
+| input2 | 197 | 14 |
+| input3 | 290 | 26 |
 
 A ~90% reduction with 95% of the variance kept.
 
@@ -178,8 +178,8 @@ strict that rule is:
 
 | video | m | what "all but 2" demands |
 |-------|---|--------------------------|
-| input3 | 23 | 91.3% agreement |
-| input2 | 26 | 92.3% agreement |
+| input3 | 26 | 92.3% agreement |
+| input2 | 14 | 85.7% agreement |
 | input1 | 48 | 95.8% agreement |
 
 It also means **no threshold downstream can be an absolute distance** — the
@@ -240,3 +240,4 @@ The GLCM distances and angles, the HOG geometry and the Canny thresholds are
 inline in `extract_features()` rather than exposed as constants, because
 changing any of them changes the length of the raw vector and invalidates
 every fitted parameter in stage 5.
+
