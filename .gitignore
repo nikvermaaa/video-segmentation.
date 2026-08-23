@@ -1,4 +1,4 @@
-# virtual / conda environment
+# virtual / conda environments
 .venv/
 venv/
 env/
