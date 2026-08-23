@@ -128,7 +128,7 @@ The algorithm is untouched; only what an object *is* changes.
 |---|---|---|
 | what an object is | a 2×2 or 3×3 pixel block | one video frame |
 | n (objects) | 16384 for a 256×256 image | 167 – 290 |
-| m (dimensions) | 4 or 9 | 23 – 48 (PCA, varies per video) |
+| m (dimensions) | 4 or 9 | 14 – 48 (PCA, varies per video) |
 | the dataset | one image | one video |
 
 As published, ONM clusters are **not time-contiguous**: a cluster is a *set*
@@ -141,7 +141,7 @@ The paper's T compares raw pixels on a fixed 0–255 scale, so a constant is
 meaningful. PCA features have no fixed scale and the dimensionality differs
 per video, so `choose_T()` sets T to a percentile (default p70) of the
 per-dimension absolute differences actually present in the data. Across the
-three clips T lands between 2.376 and 4.546.
+three clips T lands between 2.376 and 6.387.
 
 T is computed on the **feature matrix only**. The time column of section 4 is
 on a different scale by construction and would drag the percentile.
@@ -155,8 +155,8 @@ filter. Video frames recur only a handful of times:
 | video | rr min | rr median | rr max | CC from p35 | CC after the cap |
 |-------|--------|-----------|--------|-------------|------------------|
 | input1 | 0 | 1  | 19 | 1  | 1 |
-| input2 | 0 | 15 | 26 | 14 | 5 |
-| input3 | 2 | 14 | 42 | 12 | 5 |
+| input2 | 6 | 17 | 44 | 13 | 5 |
+| input3 | 0 | 15 | 26 | 14 | 5 |
 
 So CC is taken as a percentile of the observed rr — the same intent on the
 scale that exists. `--cc <int>` accepts the paper's absolute form.
@@ -191,13 +191,13 @@ resolve.
 ### The m−2 tolerance in high dimensions
 
 In the paper m is 4 or 9, so "all but 2 must agree" means 50% or 78% of
-dimensions. Here m is 23–48, so the same literal rule demands **91–96%
+dimensions. Here m is 14–48, so the same literal rule demands **86–96%
 agreement**:
 
 | video | m | what "all but 2" demands |
 |-------|---|--------------------------|
-| input3 | 23 | 91.3% |
-| input2 | 26 | 92.3% |
+| input3 | 26 | 92.3% |
+| input2 | 14 | 85.7% |
 | input1 | 48 | 95.8% |
 
 `tol=2` is the default because that is what Eq (1) literally says; `--tol 10`
@@ -353,8 +353,8 @@ There is no per-video table — see README.md for why it was removed.
 ```
 Video   Frames  5fps  PCA dims  SDCO N  Clusters  A(C)%   D(C)%      T   CC     SL
 input1     833   167        48      20         7  94.09    5.91  2.376    1  16.46
-input2    1449   290        26      18        16  99.61    0.39  3.586    5  18.29
-input3    1440   288        23      21        19 100.00    0.00  4.546    5  21.80
+input2    1177   197        14      11        13 100.00    0.00  6.387    5  23.90
+input3    1449   290        26      18        16  99.61    0.39  3.586    5  18.29
 ```
 
 Worked example, input1:
@@ -371,6 +371,10 @@ Worked example, input1:
   -> SL = 16.46, A(C) = 94.09%, D(C) = 5.91%
   -> expanded to 833 frames; 4 boundaries snapped, max shift 4
 ```
+
+Note how the cap binds differently per clip: on input1 the percentile already
+gives CC=1, so the cap changes nothing; on input2 and input3 it pulls CC from
+13 and 14 down to 5, which is what lets their short shots earn a centroid.
 
 Note how the cap binds differently per clip: on input1 the percentile already
 gives CC=1, so the cap changes nothing; on input2 and input3 it pulls CC from
