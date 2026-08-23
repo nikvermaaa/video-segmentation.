@@ -22,9 +22,6 @@ python run_all.py
 
 # 4. look at the result
 cat output/video_info/onm_summary.txt
-
-#5 if input is in the same folder
-python run_all.py --videos_dir .
 ```
 
 Step 2 must print `True`. Nothing else needs checking — if the imports were
@@ -78,8 +75,8 @@ RAM, single process.
 ```
 Video     Frames   5fps  SDCO N  Clust    A(C)%    D(C)%         T    CC       SL
 input1       833    167      20      7    94.09     5.91     2.376     1    16.46
-input2      1449    290      18     16    99.61     0.39     3.586     5    18.29
-input3      1440    288      21     19   100.00     0.00     4.546     5    21.80
+input2      1177    197      11     13   100.00     0.00     6.387     5    23.90
+input3      1449    290      18     16    99.61     0.39     3.586     5    18.29
 ```
 
 Then the groupings themselves:
