@@ -60,7 +60,7 @@ that changes every frame *within a single static shot*.
 source pixels being collapsed, which is a genuine low-pass filter. The faster
 alternatives (`INTER_NEAREST`, `INTER_LINEAR`) *sample* instead of averaging
 and alias high-frequency detail into false low-frequency patterns, which the
-GLCM features would then measure as if it were real content.
+GLCM features would then measure as if it were real content
 
 The resize does not preserve aspect ratio — 1280×720 is 16:9, 320×240 is 4:3 —
 so frames are slightly squashed horizontally. Harmless here, because every
