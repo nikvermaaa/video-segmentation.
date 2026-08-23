@@ -12,7 +12,7 @@
 # frequently drives long solves next to a pinned numpy. The pip wheel bundles
 # its own FFmpeg, is the package this project was developed and verified
 # against, and installs in seconds. pip runs last, after conda has resolved
-# everything else, which is the supported way to mix the two.
+# everything else, which is the supported way to mix the two
 
 name: onm
 
