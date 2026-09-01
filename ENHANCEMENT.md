@@ -152,14 +152,7 @@ alters every feature vector and therefore every clustering result.
 `--fix_gamma` applies `gamma` directly; stage 5's thresholds would want
 re-checking against the new features if you use it.
 
-**A hypothesis that was tested and failed.** This defect was suspected of
-causing lighting-driven false boundaries, on the reasoning that it magnifies
-exactly the within-shot exposure drift the clustering then has to reject.
-Correcting the gamma and re-clustering did **not** remove those splits, and
-mean accuracy fell. The defect is real and worth fixing on its own terms, but
-it is not the cause of those boundaries — what separates a lighting change
-from a real cut is the *shape* of the change, which is what
-`drop_flat_boundaries` tests.
+In the most cases go with fix gamma
 
 ---
 
