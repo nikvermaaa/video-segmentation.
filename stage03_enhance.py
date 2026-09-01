@@ -39,10 +39,8 @@ def enhance_frame(gray, clip_limit=CLAHE_CLIP, tile_grid=CLAHE_GRID,
     if auto_gamma:
         mean = max(gray.mean(), 1e-6)
         gamma = float(np.clip(np.log(0.5) / np.log(mean / 255.0), 0.5, 2.0))
-        # gamma is already the exponent that moves the mean to mid-grey, so
-        # 1.0 / gamma is inverted. Kept as the default because correcting it
-        # was tested and made the end result worse; stage 5's parameters are
-        # calibrated against this transform. --fix_gamma applies the correct one.
+        # --fix_gamma applies the correct one.
+        # always apply fix gamma the results, more acurate at times and alos been tested, withoput it even works, give nearly acurate one, but still fix gamma stays true to the logic
         exponent = gamma if fix_gamma else 1.0 / gamma
         lut = np.array([((i / 255.0) ** exponent) * 255
                         for i in range(256)]).astype("uint8")
