@@ -1,17 +1,3 @@
-# Video Scene Partitioning with ONM
-
-Splits a video into its scenes **without being told how many there are**,
-using Optimum N-Means:
-
-> Sreedhar Kumar S and Madheswaran M, *"An Improved Partitioned Clustering
-> Technique for Identifying Optimum Number of Dissimilar Groups in
-> Multimedia Dataset"*, European Journal of Scientific Research,
-> Vol. 151 No. 1, December 2018, pp. 5–21.
-
-This folder is self-contained. Nothing here imports anything from outside it.
-
----
-
 ## How it works
 
 The core idea is that **N is a count, not a search result**. Rather than
