@@ -36,39 +36,6 @@ import numpy as np
 
 
 # ======================================================================
-# PARAMETERS
-# ======================================================================
-T_PERCENTILE = 70.0    # T = this percentile of per-dimension |differences|
-TOL = 2                # Eq (1): objects agree if >= m-TOL dimensions match
-CC_PERCENTILE = 35.0   # CC = this percentile of the observed rr - see sdco()
-TIME_WEIGHT = 0.5      # 0 reproduces the paper exactly
-SL_FACTOR = 1.0        # SL = SL_FACTOR * T * sqrt(feature dims)
-MIN_RUN = 6        # shortest allowed scene, in frames; 0 reproduces the
-                     # paper. 6 frames at 5 fps = 1.2 seconds.
-                       #
-                       # This is now the ONLY minimum-scene-length control:
-                       # sdco() caps CC at MIN_RUN-1, so the two can no longer
-                       # disagree. At 10 a real 8-frame shot was deleted twice
-                       # over - starved of a centroid by CC, then merged away
-                       # by merge_short_runs. Raising it silently raises the
-                       # shortest scene the pipeline can represent at all.
-SL_MERGE = 0.8         # merge adjacent clusters closer than this * SL; 0 disables
-SPIKE_MIN = 1.5        # a boundary must be this many times the local median
-                       # jump; 0 disables
-MIN_JUMP = 0.55        # ...AND at least this many x SL in absolute distance;
-                       # 0 disables
-
-
-
-# CC is a user parameter in the paper and genuinely is content dependent: a
-# scene of L frames can only produce a centroid if CC < L, so CC and min_run
-# both act as hidden minimum-scene-length filters. The honest way to handle
-# that is a rule derived from the footage, or a CLI flag for a one-off run -
-# not a lookup keyed by name. --cc / --min_run / --t_pct still take a value
-# for a single deliberate run.
-
-
-# ======================================================================
 # TIME WEIGHT  (an ADDITION - not in the paper)
 # ======================================================================
 def add_time_feature(X, time_weight):
