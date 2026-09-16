@@ -97,17 +97,7 @@ def build_features(src_dir, out_dir):
 
     # safety net behind the guard in extract_features; warns loudly because
     # a silent 0 is a feature that stopped measuring anything
-    if not np.isfinite(raw).all():
-        bad = ~np.isfinite(raw)
-        rows = np.unique(np.where(bad)[0])
-        print(f"      [warn] {int(bad.sum())} non-finite feature value(s) "
-              f"across {len(rows)} frame(s) -> replaced with 0; "
-              f"first affected frame index {rows[0]}")
-        raw = np.nan_to_num(raw, nan=0.0, posinf=0.0, neginf=0.0)
-
-    X = StandardScaler().fit_transform(raw)
-    if X.shape[0] > 3:
-        X = PCA(n_components=PCA_VARIANCE).fit_transform(X)
+    
 
     # one file per frame, as well as the stacked matrix
     for p, vec in zip(enhanced_paths, X):
